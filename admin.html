@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Админ-панель — Ля Букет</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="lotus" viewBox="0 0 64 64">
+      <g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M32 12c5.5 6.5 6.5 15 0 24-6.5-9-5.5-17.5 0-24z"/>
+        <path d="M32 36c-3-7.5-9.5-12.5-18-12.5 0 8.5 6.5 13.5 18 12.5z"/>
+        <path d="M32 36c3-7.5 9.5-12.5 18-12.5 0 8.5-6.5 13.5-18 12.5z"/>
+        <path d="M32 36c-6.5-2-13-1-19 4.5 6.5 4 13 3 19-4.5z"/>
+        <path d="M32 36c6.5-2 13-1 19 4.5-6.5 4-13 3-19-4.5z"/>
+        <path d="M22 48h20"/>
+      </g>
+    </symbol>
+  </svg>
+
+  <!-- Вход -->
+  <section class="login" id="login" hidden>
+    <form class="login__card" id="loginForm">
+      <svg class="login__mark"><use href="#lotus"/></svg>
+      <h1>Ля Букет</h1>
+      <p>Панель администратора</p>
+      <input name="email" type="email" placeholder="Email администратора" id="loginEmail" hidden autocomplete="username">
+      <input name="password" type="password" placeholder="Пароль" required autocomplete="current-password">
+      <button class="btn btn--gold" type="submit">Войти</button>
+      <p class="login__error" id="loginError"></p>
+      <a href="index.html" class="login__back">← Вернуться на сайт</a>
+    </form>
+  </section>
+
+  <!-- Панель -->
+  <div class="app" id="app" hidden>
+    <header class="top">
+      <a href="index.html" class="brand" target="_blank">
+        <svg><use href="#lotus"/></svg>
+        <span><b>Ля Букет</b><small>администратор</small></span>
+      </a>
+      <nav class="tabs">
+        <button class="tab is-active" data-tab="catalog">Каталог</button>
+        <button class="tab" data-tab="settings">Настройки магазина</button>
+      </nav>
+      <div class="top__actions">
+        <a href="index.html" target="_blank" class="btn btn--ghost btn--sm">Открыть сайт ↗</a>
+        <button class="btn btn--ghost btn--sm" id="logout">Выйти</button>
+      </div>
+    </header>
+
+    <div class="mode" id="modeBanner"></div>
+
+    <main class="panel" id="tab-catalog">
+      <div class="stats" id="stats"></div>
+
+      <div class="toolbar">
+        <input class="input" id="q" type="search" placeholder="Поиск по названию или составу…">
+        <select class="input" id="catFilter"></select>
+        <div class="toolbar__spacer"></div>
+        <div class="menu">
+          <button class="btn btn--ghost btn--sm" id="menuBtn">Ещё ▾</button>
+          <div class="menu__list" id="menuList" hidden>
+            <button data-act="export">Скачать резервную копию (JSON)</button>
+            <button data-act="import">Загрузить из копии…</button>
+            <button data-act="reset" class="danger">Вернуть исходный каталог</button>
+          </div>
+        </div>
+        <button class="btn btn--gold" id="addBtn">+ Добавить букет</button>
+      </div>
+
+      <div class="list" id="list"></div>
+      <p class="empty" id="empty" hidden>Ничего не найдено</p>
+    </main>
+
+    <main class="panel" id="tab-settings" hidden>
+      <form class="settings" id="settingsForm">
+        <h2>Контакты и информация</h2>
+        <p class="hint">Эти данные сразу отображаются на сайте: в шапке, разделе «Адрес» и подвале.</p>
+        <div class="fields">
+          <label>Телефон<input class="input" name="phone" placeholder="+7 917 285 61 68"></label>
+          <label>Telegram (без @)<input class="input" name="telegram" placeholder="SvetlanaFlowW"></label>
+          <label class="wide">Адрес<input class="input" name="address"></label>
+          <label>Регион<input class="input" name="region"></label>
+          <label>Часы работы<input class="input" name="hours" placeholder="Ежедневно с 09:00 до 20:00"></label>
+          <label>Рейтинг на Яндекс Картах<input class="input" name="rating" placeholder="4,4"></label>
+          <label class="wide">Объявление над шапкой сайта (пусто — не показывать)<input class="input" name="announcement" placeholder="Например: 8 марта — принимаем предзаказы!"></label>
+        </div>
+        <button class="btn btn--gold" type="submit">Сохранить</button>
+      </form>
+    </main>
+  </div>
+
+  <!-- Редактор букета -->
+  <div class="sheet" id="editor" aria-hidden="true">
+    <div class="sheet__backdrop" data-close></div>
+    <form class="sheet__panel" id="editForm">
+      <div class="sheet__head">
+        <h2 id="editTitle">Новый букет</h2>
+        <button type="button" class="x" data-close aria-label="Закрыть">✕</button>
+      </div>
+      <div class="sheet__body">
+        <label class="drop" id="drop">
+          <input type="file" accept="image/*" id="file" hidden>
+          <img id="preview" alt="" hidden>
+          <span class="drop__hint" id="dropHint"><b>Загрузите фото</b>перетащите сюда или нажмите<br><small>JPG, PNG, WEBP — сожмём автоматически</small></span>
+          <span class="drop__busy" id="dropBusy" hidden>Обработка…</span>
+        </label>
+        <label>…или ссылка на фото<input class="input" name="image" id="imageUrl" placeholder="https://…"></label>
+        <label>Название*<input class="input" name="name" required maxlength="120" placeholder="Французская симфония"></label>
+        <label>Подзаголовок<input class="input" name="kind" maxlength="60" placeholder="Изысканный букет"></label>
+        <div class="row">
+          <label>Цена, ₽*<input class="input" name="price" type="number" min="0" step="50" required></label>
+          <label>Категория<select class="input" name="category" id="catSelect"></select></label>
+        </div>
+        <label>Описание и состав<textarea class="input" name="description" rows="6" placeholder="Букет из гортензии, кустовых роз, эустомы…"></textarea></label>
+        <div class="switches">
+          <label class="switch"><input type="checkbox" name="visible" checked><span></span>Показывать на сайте</label>
+          <label class="switch"><input type="checkbox" name="hit"><span></span>Хит — в 3D-карусели</label>
+        </div>
+      </div>
+      <div class="sheet__foot">
+        <button type="button" class="btn btn--danger" id="delBtn" hidden>Удалить</button>
+        <div class="toolbar__spacer"></div>
+        <button type="button" class="btn btn--ghost" data-close>Отмена</button>
+        <button type="submit" class="btn btn--gold" id="saveBtn">Сохранить</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Подтверждение -->
+  <div class="confirm" id="confirm" aria-hidden="true">
+    <div class="sheet__backdrop" data-no></div>
+    <div class="confirm__card">
+      <h3 id="confirmText">Удалить?</h3>
+      <p id="confirmSub"></p>
+      <div class="confirm__btns">
+        <button class="btn btn--ghost" data-no>Отмена</button>
+        <button class="btn btn--danger" data-yes>Удалить</button>
+      </div>
+    </div>
+  </div>
+
+  <input type="file" id="importFile" accept="application/json,.json" hidden>
+  <div class="toast" id="toast"></div>
+
+  <script type="module" src="js/admin.js"></script>
+</body>
+</html>

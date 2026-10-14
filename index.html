@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Ля Букет — цветочный салон в Альметьевске</title>
+  <meta name="description" content="Авторские букеты и композиции, цветы в коробке, свадебная флористика и быстрая доставка по Альметьевску. ул. Мусы Джалиля, 22. +7 917 285 61 68">
+  <meta name="theme-color" content="#fbf6f1">
+  <meta property="og:title" content="Ля Букет — цветочный салон">
+  <meta property="og:description" content="Авторские букеты с доставкой по Альметьевску">
+  <meta property="og:image" content="images/catalog/b39.jpg">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Onest:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <!-- Прелоадер -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader__inner">
+      <svg class="preloader__mark" viewBox="0 0 64 64"><use href="#lotus"/></svg>
+      <div class="preloader__word">Ля Букет</div>
+      <div class="preloader__bar"><span></span></div>
+    </div>
+  </div>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="lotus" viewBox="0 0 64 64">
+      <g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M32 12c5.5 6.5 6.5 15 0 24-6.5-9-5.5-17.5 0-24z"/>
+        <path d="M32 36c-3-7.5-9.5-12.5-18-12.5 0 8.5 6.5 13.5 18 12.5z"/>
+        <path d="M32 36c3-7.5 9.5-12.5 18-12.5 0 8.5-6.5 13.5-18 12.5z"/>
+        <path d="M32 36c-6.5-2-13-1-19 4.5 6.5 4 13 3 19-4.5z"/>
+        <path d="M32 36c6.5-2 13-1 19 4.5-6.5 4-13 3-19-4.5z"/>
+        <path d="M22 48h20"/>
+      </g>
+    </symbol>
+  </svg>
+
+  <div class="announce" id="announce" hidden></div>
+
+  <!-- Шапка -->
+  <header class="header" id="header">
+    <a href="#top" class="logo" aria-label="Ля Букет — на главную">
+      <svg class="logo__mark"><use href="#lotus"/></svg>
+      <span class="logo__text">
+        <span class="logo__name">Ля Букет</span>
+        <span class="logo__sub">цветочный салон</span>
+      </span>
+    </a>
+    <nav class="nav" id="nav">
+      <a href="#hits">Хиты</a>
+      <a href="#catalog">Каталог</a>
+      <a href="#about">О салоне</a>
+      <a href="#reviews">Отзывы</a>
+      <a href="#contacts">Адрес</a>
+    </nav>
+    <div class="header__actions">
+      <a class="header__phone" data-shop-phone href="tel:+79172856168">+7 917 285 61 68</a>
+      <button class="cart-btn" id="cartOpen" aria-label="Корзина">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+        <span class="cart-btn__count" id="cartCount">0</span>
+      </button>
+      <button class="burger" id="burger" aria-label="Меню"><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Первый экран -->
+    <section class="hero">
+      <div class="mesh" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <canvas class="hero__canvas" id="heroCanvas" aria-hidden="true"></canvas>
+      <div class="hero__vignette"></div>
+      <div class="hero__content">
+        <p class="eyebrow reveal-hero"><span class="line"></span>Цветочный салон · Альметьевск</p>
+        <span class="hero__script reveal-hero">с любовью</span>
+        <h1 class="hero__title">
+          <span class="split">Цветы,</span>
+          <span class="split"><em>которые скажут</em></span>
+          <span class="split">всё за вас</span>
+        </h1>
+        <p class="hero__lead reveal-hero">Создаём уникальные авторские букеты и композиции. Оформляем мероприятия и быстро доставляем по городу. Цветы с душой для любого повода.</p>
+        <div class="hero__cta reveal-hero">
+          <a href="#catalog" class="btn btn--gold magnetic"><span>Выбрать букет</span></a>
+          <a href="https://wa.me/79172856168" target="_blank" rel="noopener" class="btn btn--ghost magnetic" data-shop-wa><span>Заказать в WhatsApp</span></a>
+        </div>
+        <div class="hero__meta reveal-hero">
+          <a class="rating" href="https://yandex.ru/maps/org/12457909803" target="_blank" rel="noopener">
+            <span class="rating__num" data-shop-rating>4,4</span>
+            <span class="rating__stars">★★★★★</span>
+            <span class="rating__src">на Яндекс Картах</span>
+          </a>
+          <div class="hero__fact"><b>Доставка</b><span>по Альметьевску</span></div>
+          <div class="hero__fact"><b data-shop-hours-short>с 09:00</b><span>ежедневно</span></div>
+        </div>
+      </div>
+      <a href="#hits" class="scroll-cue" aria-label="Листать вниз"><span></span></a>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Авторские букеты</span><i>✦</i><span>Цветы в коробке</span><i>✦</i><span>Свадебная флористика</span><i>✦</i><span>Оформление мероприятий</span><i>✦</i><span>Доставка по городу</span><i>✦</i><span>Подарочная упаковка</span><i>✦</i>
+        <span>Авторские букеты</span><i>✦</i><span>Цветы в коробке</span><i>✦</i><span>Свадебная флористика</span><i>✦</i><span>Оформление мероприятий</span><i>✦</i><span>Доставка по городу</span><i>✦</i><span>Подарочная упаковка</span><i>✦</i>
+      </div>
+    </div>
+
+    <!-- 3D-карусель хитов -->
+    <section class="hits section" id="hits">
+      <div class="section__head">
+        <p class="eyebrow"><span class="line"></span>Выбор наших гостей</p>
+        <h2 class="section__title reveal">Коллекция <em>шедевров</em></h2>
+        <p class="section__lead reveal">Потяните карусель — каждая композиция собрана вручную в нашем салоне.</p>
+      </div>
+      <div class="ring-stage" id="ringStage">
+        <div class="ring" id="ring"></div>
+        <div class="ring-floor"></div>
+      </div>
+      <div class="ring-controls">
+        <button class="round-btn" id="ringPrev" aria-label="Предыдущий">←</button>
+        <div class="ring-caption" id="ringCaption"></div>
+        <button class="round-btn" id="ringNext" aria-label="Следующий">→</button>
+      </div>
+    </section>
+
+    <!-- Каталог -->
+    <section class="catalog section" id="catalog">
+      <div class="section__head">
+        <p class="eyebrow"><span class="line"></span>Каталог</p>
+        <h2 class="section__title reveal">Букеты <em>и композиции</em></h2>
+      </div>
+      <div class="toolbar">
+        <div class="chips" id="chips" role="tablist"></div>
+        <div class="toolbar__right">
+          <label class="search">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+            <input id="search" type="search" placeholder="Поиск: розы, гортензия…" autocomplete="off">
+          </label>
+          <select id="sort" class="select" aria-label="Сортировка">
+            <option value="default">По умолчанию</option>
+            <option value="asc">Сначала дешевле</option>
+            <option value="desc">Сначала дороже</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid" id="grid"></div>
+      <p class="empty" id="empty" hidden>Ничего не нашлось. Напишите нам — соберём букет под ваш запрос.</p>
+      <div class="more-wrap"><button class="btn btn--ghost" id="more"><span>Показать ещё</span></button></div>
+    </section>
+
+    <!-- О салоне -->
+    <section class="about section" id="about">
+      <div class="about__grid">
+        <div class="about__visual">
+          <div class="stack" id="stack">
+            <img src="images/catalog/b03.jpg" alt="Композиция в бархатной коробке" loading="lazy">
+            <img src="images/catalog/b39.jpg" alt="Корзина с французскими розами" loading="lazy">
+            <img src="images/catalog/b32.jpg" alt="Королевский букет" loading="lazy">
+          </div>
+          <div class="about__badge">
+            <svg><use href="#lotus"/></svg>
+            <span>ручная работа</span>
+          </div>
+        </div>
+        <div class="about__text">
+          <p class="eyebrow"><span class="line"></span>О салоне</p>
+          <h2 class="section__title reveal">Каждый букет — <em>маленькое произведение</em></h2>
+          <p class="reveal">«Ля Букет» — цветочный салон в самом центре Альметьевска. Мы сами отбираем свежие цветы, продумываем палитру и упаковку, а затем собираем композицию специально под ваш повод: признание, день рождения, свадьбу или просто «без повода».</p>
+          <p class="reveal">Гости особенно отмечают свежесть цветов, вежливых флористов и то, как долго стоят наши букеты.</p>
+          <div class="stats">
+            <div class="stat"><b data-count="4.4" data-decimals="1">0</b><span>рейтинг на Яндекс Картах</span></div>
+            <div class="stat"><b data-count="50" data-suffix="+">0</b><span>авторских композиций в каталоге</span></div>
+            <div class="stat"><b data-count="122" data-suffix="">0</b><span>фото работ на Картах</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="services">
+        <article class="service tilt">
+          <span class="service__num">01</span>
+          <h3>Авторские букеты</h3>
+          <p>Гортензии, пионовидные розы, эустома, калла — собираем из того, что вдохновляет именно вас.</p>
+        </article>
+        <article class="service tilt">
+          <span class="service__num">02</span>
+          <h3>Цветы в коробке и корзине</h3>
+          <p>Бархатные шляпные коробки и плетёные корзины — композиция стоит без вазы и радует дольше.</p>
+        </article>
+        <article class="service tilt">
+          <span class="service__num">03</span>
+          <h3>Свадьбы и мероприятия</h3>
+          <p>Букет невесты, бутоньерки и профессиональное цветочное оформление торжества.</p>
+        </article>
+        <article class="service tilt">
+          <span class="service__num">04</span>
+          <h3>Доставка и подарки</h3>
+          <p>Быстрая доставка по городу, подарочная упаковка, открытки, сертификаты и сухоцветы.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Отзывы -->
+    <section class="reviews section" id="reviews">
+      <div class="section__head">
+        <p class="eyebrow"><span class="line"></span>Отзывы</p>
+        <h2 class="section__title reveal">Нам <em>доверяют</em></h2>
+      </div>
+      <div class="reviews__track" id="reviewsTrack">
+        <figure class="review">
+          <div class="review__stars">★★★★★</div>
+          <blockquote>Огромное спасибо цветочному салону за чудесный букет! Розы были свежими и ароматными, а оформление — просто волшебным. Доставили точно в срок, даже раньше.</blockquote>
+          <figcaption>Игорь С.</figcaption>
+        </figure>
+        <figure class="review">
+          <div class="review__stars">★★★★★</div>
+          <blockquote>Не в первый раз покупаю здесь цветы. Хочу отметить высокий профессионализм Светланы, её доброту и стремление помочь в выборе.</blockquote>
+          <figcaption>Ильдар Саидов</figcaption>
+        </figure>
+        <figure class="review">
+          <div class="review__stars">★★★★★</div>
+          <blockquote>Всегда широкий ассортимент, на любой вкус и бюджет. Очень вежливый персонал, помогут в выборе. И цветочки очень долго стоят!</blockquote>
+          <figcaption>Наташа Вильданова</figcaption>
+        </figure>
+        <figure class="review">
+          <div class="review__stars">★★★★★</div>
+          <blockquote>Приятная атмосфера, хорошие, добрые и вежливые продавцы, знают своё дело.</blockquote>
+          <figcaption>Ясмина</figcaption>
+        </figure>
+        <figure class="review">
+          <div class="review__stars">★★★★★</div>
+          <blockquote>Очень свежие цветы и хороший выбор. Спасибо!</blockquote>
+          <figcaption>G. M.</figcaption>
+        </figure>
+      </div>
+      <a class="link-gold" href="https://yandex.ru/maps/org/12457909803/reviews/" target="_blank" rel="noopener">Все отзывы на Яндекс Картах →</a>
+    </section>
+
+    <!-- Адрес и контакты -->
+    <section class="contacts section" id="contacts">
+      <div class="contacts__grid">
+        <div class="contacts__card">
+          <p class="eyebrow"><span class="line"></span>Адрес салона</p>
+          <h2 class="section__title">Ждём вас <em>в гости</em></h2>
+          <ul class="contacts__list">
+            <li>
+              <span class="ico">⌖</span>
+              <div><b data-shop-address>Альметьевск, улица Мусы Джалиля, 22</b><small data-shop-region>Республика Татарстан</small></div>
+            </li>
+            <li>
+              <span class="ico">◷</span>
+              <div><b data-shop-hours>Ежедневно с 09:00</b><small>Самовывоз и доставка</small></div>
+            </li>
+            <li>
+              <span class="ico">✆</span>
+              <div><a href="tel:+79172856168" data-shop-phone><b>+7 917 285 61 68</b></a><small>Звонки и сообщения</small></div>
+            </li>
+            <li>
+              <span class="ico">₽</span>
+              <div><b>Карта, наличные, СБП, QR</b><small>Удобная оплата при получении</small></div>
+            </li>
+          </ul>
+          <div class="contacts__btns">
+            <a class="btn btn--gold" target="_blank" rel="noopener" href="https://yandex.ru/maps?mode=routes&rtext=~54.901957,52.292535&ruri=~ymapsbm1%3A%2F%2Forg%3Foid%3D12457909803"><span>Построить маршрут</span></a>
+            <a class="btn btn--ghost" target="_blank" rel="noopener" href="https://wa.me/79172856168" data-shop-wa><span>WhatsApp</span></a>
+            <a class="btn btn--ghost" target="_blank" rel="noopener" href="https://t.me/SvetlanaFlowW" data-shop-tg><span>Telegram</span></a>
+          </div>
+        </div>
+        <div class="map">
+          <iframe title="Ля Букет на карте" loading="lazy" src="https://yandex.ru/map-widget/v1/?ll=52.292535%2C54.901957&z=16&pt=52.292535%2C54.901957%2Cpm2rdm&oid=12457909803&ol=biz" allowfullscreen></iframe>
+          <div class="map__pin"><svg><use href="#lotus"/></svg> Ля Букет</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__top">
+      <a href="#top" class="logo">
+        <svg class="logo__mark"><use href="#lotus"/></svg>
+        <span class="logo__text"><span class="logo__name">Ля Букет</span><span class="logo__sub">цветочный салон</span></span>
+      </a>
+      <nav class="footer__nav">
+        <a href="#catalog">Каталог</a><a href="#about">О салоне</a><a href="#reviews">Отзывы</a><a href="#contacts">Адрес</a>
+      </nav>
+      <a class="footer__phone" data-shop-phone href="tel:+79172856168">+7 917 285 61 68</a>
+    </div>
+    <div class="footer__bottom">
+      <span>© <span id="year"></span> Ля Букет · <span data-shop-address>Альметьевск, улица Мусы Джалиля, 22</span></span>
+      <a href="admin.html" class="footer__admin">Вход для администратора</a>
+    </div>
+  </footer>
+
+  <!-- Карточка товара -->
+  <div class="modal" id="productModal" aria-hidden="true">
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__panel product" role="dialog" aria-modal="true" aria-labelledby="pmName">
+      <button class="modal__close" data-close aria-label="Закрыть">✕</button>
+      <div class="product__media"><img id="pmImg" alt=""></div>
+      <div class="product__body">
+        <p class="product__kind" id="pmKind"></p>
+        <h3 class="product__name" id="pmName"></h3>
+        <p class="product__price" id="pmPrice"></p>
+        <p class="product__desc" id="pmDesc"></p>
+        <div class="product__actions">
+          <div class="qty"><button data-q="-1" aria-label="Меньше">−</button><span id="pmQty">1</span><button data-q="1" aria-label="Больше">+</button></div>
+          <button class="btn btn--gold" id="pmAdd"><span>В корзину</span></button>
+        </div>
+        <a class="link-gold" id="pmQuick" target="_blank" rel="noopener">Заказать в один клик через WhatsApp →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Корзина -->
+  <aside class="drawer" id="cart" aria-hidden="true">
+    <div class="drawer__backdrop" data-close></div>
+    <div class="drawer__panel">
+      <div class="drawer__head">
+        <h3>Ваш заказ</h3>
+        <button class="modal__close" data-close aria-label="Закрыть">✕</button>
+      </div>
+      <div class="drawer__items" id="cartItems"></div>
+      <form class="checkout" id="checkout">
+        <div class="checkout__total"><span>Итого</span><b id="cartTotal">0 ₽</b></div>
+        <div class="seg">
+          <label><input type="radio" name="delivery" value="Доставка" checked><span>Доставка</span></label>
+          <label><input type="radio" name="delivery" value="Самовывоз"><span>Самовывоз</span></label>
+        </div>
+        <input name="name" placeholder="Ваше имя" required>
+        <input name="phone" type="tel" placeholder="Телефон" required>
+        <input name="address" placeholder="Адрес доставки" id="addrField">
+        <input name="when" placeholder="Дата и время (например, завтра к 18:00)">
+        <textarea name="note" rows="2" placeholder="Текст открытки или пожелания"></textarea>
+        <button class="btn btn--gold btn--wide" type="submit" data-via="wa"><span>Отправить заказ в WhatsApp</span></button>
+        <button class="btn btn--ghost btn--wide" type="submit" data-via="tg"><span>Отправить в Telegram</span></button>
+        <p class="checkout__hint">Флорист подтвердит наличие и стоимость доставки в течение нескольких минут.</p>
+      </form>
+    </div>
+  </aside>
+
+  <div class="toast" id="toast"></div>
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

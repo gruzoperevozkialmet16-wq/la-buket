@@ -100,6 +100,7 @@
             <span class="rating__src">на Яндекс Картах</span>
           </a>
           <div class="hero__fact"><b>Доставка</b><span>по Альметьевску</span></div>
+          <div class="hero__fact"><b>WhatsApp · MAX</b><span>заказ в мессенджере</span></div>
           <div class="hero__fact"><b data-shop-hours-short>с 09:00</b><span>ежедневно</span></div>
         </div>
       </div>
@@ -260,7 +261,7 @@
             </li>
             <li>
               <span class="ico">✆</span>
-              <div><a href="tel:+79172856168" data-shop-phone><b>+7 917 285 61 68</b></a><small>Звонки и сообщения</small></div>
+              <div><a href="tel:+79172856168" data-shop-phone><b>+7 917 285 61 68</b></a><small>Звонки, WhatsApp, Telegram и MAX</small></div>
             </li>
             <li>
               <span class="ico">₽</span>
@@ -271,6 +272,7 @@
             <a class="btn btn--gold" target="_blank" rel="noopener" href="https://yandex.ru/maps?mode=routes&rtext=~54.901957,52.292535&ruri=~ymapsbm1%3A%2F%2Forg%3Foid%3D12457909803"><span>Построить маршрут</span></a>
             <a class="btn btn--ghost" target="_blank" rel="noopener" href="https://wa.me/79172856168" data-shop-wa><span>WhatsApp</span></a>
             <a class="btn btn--ghost" target="_blank" rel="noopener" href="https://t.me/SvetlanaFlowW" data-shop-tg><span>Telegram</span></a>
+            <button class="btn btn--ghost btn--max" type="button" data-max><span>MAX</span></button>
           </div>
         </div>
         <div class="map">
@@ -301,19 +303,24 @@
   <!-- Карточка товара -->
   <div class="modal" id="productModal" aria-hidden="true">
     <div class="modal__backdrop" data-close></div>
-    <div class="modal__panel product" role="dialog" aria-modal="true" aria-labelledby="pmName">
+    <div class="modal__panel product" role="dialog" aria-modal="true" aria-labelledby="pmName" data-lenis-prevent>
       <button class="modal__close" data-close aria-label="Закрыть">✕</button>
-      <div class="product__media"><img id="pmImg" alt=""></div>
+      <div class="product__media" id="pmMedia"><img id="pmImg" alt="" decoding="async"></div>
       <div class="product__body">
         <p class="product__kind" id="pmKind"></p>
         <h3 class="product__name" id="pmName"></h3>
         <p class="product__price" id="pmPrice"></p>
         <p class="product__desc" id="pmDesc"></p>
-        <div class="product__actions">
+        <div class="product__actions" id="pmActions">
           <div class="qty"><button data-q="-1" aria-label="Меньше">−</button><span id="pmQty">1</span><button data-q="1" aria-label="Больше">+</button></div>
           <button class="btn btn--gold" id="pmAdd"><span>В корзину</span></button>
         </div>
-        <a class="link-gold" id="pmQuick" target="_blank" rel="noopener">Заказать в один клик через WhatsApp →</a>
+        <div class="quick">
+          <span>Заказать в один клик:</span>
+          <a class="quick__btn quick__btn--wa" id="pmQuick" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="quick__btn quick__btn--tg" id="pmQuickTg" target="_blank" rel="noopener">Telegram</a>
+          <button class="quick__btn quick__btn--max" id="pmQuickMax" type="button">MAX</button>
+        </div>
       </div>
     </div>
   </div>
@@ -321,7 +328,7 @@
   <!-- Корзина -->
   <aside class="drawer" id="cart" aria-hidden="true">
     <div class="drawer__backdrop" data-close></div>
-    <div class="drawer__panel">
+    <div class="drawer__panel" data-lenis-prevent>
       <div class="drawer__head">
         <h3>Ваш заказ</h3>
         <button class="modal__close" data-close aria-label="Закрыть">✕</button>
@@ -339,7 +346,10 @@
         <input name="when" placeholder="Дата и время (например, завтра к 18:00)">
         <textarea name="note" rows="2" placeholder="Текст открытки или пожелания"></textarea>
         <button class="btn btn--gold btn--wide" type="submit" data-via="wa"><span>Отправить заказ в WhatsApp</span></button>
-        <button class="btn btn--ghost btn--wide" type="submit" data-via="tg"><span>Отправить в Telegram</span></button>
+        <div class="checkout__alt">
+          <button class="btn btn--ghost" type="submit" data-via="tg"><span>Telegram</span></button>
+          <button class="btn btn--ghost btn--max" type="submit" data-via="max"><span>MAX</span></button>
+        </div>
         <p class="checkout__hint">Флорист подтвердит наличие и стоимость доставки в течение нескольких минут.</p>
       </form>
     </div>

@@ -330,14 +330,24 @@ function openProduct(id) {
   if (!f) return;
   current = f;
   qty = 1;
-  $('#pmImg').src = f.image;
-  $('#pmImg').alt = f.name;
+  // место под фото зарезервировано, пока грузится — мягкая подложка вместо пустоты
+  const img = $('#pmImg');
+  const media = $('#pmMedia');
+  media.classList.add('is-loading');
+  img.onload = img.onerror = () => media.classList.remove('is-loading');
+  img.src = f.image;
+  img.alt = f.name;
+  if (img.complete && img.naturalWidth) media.classList.remove('is-loading');
+  $('#productModal .modal__panel').scrollTop = 0;
   $('#pmKind').textContent = f.kind || CATEGORIES.find((c) => c.id === f.category)?.label || '';
   $('#pmName').textContent = f.name;
   $('#pmPrice').textContent = fmt(f.price);
   $('#pmDesc').textContent = f.description;
   $('#pmQty').textContent = qty;
-  $('#pmQuick').href = `https://wa.me/${shop.phoneRaw}?text=${encodeURIComponent(`Здравствуйте! Хочу заказать букет «${f.name}» за ${fmt(f.price)}.`)}`;
+  const quickText = `Здравствуйте! Хочу заказать букет «${f.name}» за ${fmt(f.price)}.`;
+  $('#pmQuick').href = `https://wa.me/${shop.phoneRaw}?text=${encodeURIComponent(quickText)}`;
+  $('#pmQuickTg').href = `https://t.me/${shop.telegram}`;
+  $('#pmQuickMax').onclick = () => openMax(quickText);
   openLayer($('#productModal'));
 }
 
@@ -474,7 +484,9 @@ $('#checkout').addEventListener('submit', async (e) => {
     d.note ? `Пожелания / открытка: ${d.note}` : '',
   ].filter(Boolean).join('\n');
 
-  if (via === 'tg') {
+  if (via === 'max') {
+    openMax(text);
+  } else if (via === 'tg') {
     try { await navigator.clipboard.writeText(text); } catch { /* нет доступа к буферу */ }
     window.open(`https://t.me/${shop.telegram}`, '_blank', 'noopener');
     toast('Текст заказа скопирован — вставьте его в чат Telegram');
@@ -482,6 +494,21 @@ $('#checkout').addEventListener('submit', async (e) => {
     window.open(`https://wa.me/${shop.phoneRaw}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
     toast('Открываем WhatsApp…');
   }
+});
+
+/* ---------- MAX ---------- */
+
+// У MAX нет ссылки «написать по номеру», поэтому копируем текст заказа (или номер) и открываем мессенджер.
+async function openMax(text) {
+  const payload = text || shop.phone;
+  try { await navigator.clipboard.writeText(payload); } catch { /* нет доступа к буферу */ }
+  window.open('https://max.ru/', '_blank', 'noopener');
+  toast(text
+    ? `Текст заказа скопирован. В MAX найдите ${shop.phone} и вставьте сообщение`
+    : `Номер ${shop.phone} скопирован — найдите нас в MAX`);
+}
+document.addEventListener('click', (e) => {
+  if (e.target.closest('[data-max]')) openMax();
 });
 
 /* ---------- Тост ---------- */

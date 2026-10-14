@@ -560,11 +560,15 @@ function introAnimations() {
   $$('.hero__title .split').forEach((line) => {
     line.innerHTML = `<span>${line.innerHTML}</span>`;
   });
-  gsap.from('.hero__title .split > span', { yPercent: 115, rotate: 4, duration: 1.4, ease: 'expo.out', stagger: 0.12 });
-  gsap.from('.reveal-hero', { opacity: 0, y: 30, duration: 1.2, ease: 'expo.out', stagger: 0.1, delay: 0.35 });
+  // без поворота и с очисткой transform по окончании — иначе курсив на телефонах рисуется «рваным»
+  gsap.from('.hero__title .split > span', {
+    yPercent: 115, duration: 1.4, ease: 'expo.out', stagger: 0.12, clearProps: 'transform',
+    onComplete: () => $('.hero__title').classList.add('is-revealed'),
+  });
+  gsap.from('.reveal-hero', { opacity: 0, y: 30, duration: 1.2, ease: 'expo.out', stagger: 0.1, delay: 0.35, clearProps: 'transform' });
 
   $$('.reveal').forEach((el) => {
-    gsap.from(el, { opacity: 0, y: 50, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 88%' } });
+    gsap.from(el, { opacity: 0, y: 50, duration: 1.2, ease: 'expo.out', clearProps: 'transform', scrollTrigger: { trigger: el, start: 'top 88%' } });
   });
   $$('.section .eyebrow').forEach((el) => {
     gsap.from(el, { opacity: 0, x: -20, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 90%' } });

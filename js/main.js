@@ -172,8 +172,8 @@ function renderGrid(animate = false, appendOnly = false) {
   const fresh = [...grid.children].slice(prevCount);
   fresh.forEach(bindTilt);
   if (hasGsap && (animate || appendOnly || !introDone)) {
-    gsap.fromTo(fresh, { opacity: 0, y: 60, rotateX: -18 }, {
-      opacity: 1, y: 0, rotateX: 0, duration: 1, ease: 'expo.out', stagger: 0.06, clearProps: 'transform',
+    gsap.fromTo(fresh, { opacity: 0, y: 50 }, {
+      opacity: 1, y: 0, duration: 1, ease: 'expo.out', stagger: 0.06, clearProps: 'transform',
       scrollTrigger: animate || appendOnly ? undefined : { trigger: grid, start: 'top 85%' },
     });
   }
@@ -194,7 +194,7 @@ $('#grid').addEventListener('click', (e) => {
 // 3D-наклон карточки за курсором + блик
 function bindTilt(el) {
   if (!finePointer || reduceMotion) return;
-  const max = el.classList.contains('service') ? 8 : 10;
+  const max = 10;
   el.addEventListener('pointermove', (e) => {
     const r = el.getBoundingClientRect();
     const px = (e.clientX - r.left) / r.width;
@@ -209,7 +209,6 @@ function bindTilt(el) {
     el.style.transform = '';
   });
 }
-$$('.tilt').forEach(bindTilt);
 
 /* ---------- 3D-карусель хитов ---------- */
 
@@ -612,9 +611,9 @@ function introAnimations() {
     .from(stack[1], { rotate: 0, x: -80, rotateY: -30 }, 0)
     .from(stack[2], { y: 80, scale: 0.9 }, 0);
 
-  gsap.from('.service', { opacity: 0, y: 80, rotateX: -25, duration: 1.2, ease: 'expo.out', stagger: 0.1, scrollTrigger: { trigger: '.services', start: 'top 85%' } });
+  gsap.from('.service', { opacity: 0, y: 40, duration: 1.1, ease: 'expo.out', stagger: 0.1, clearProps: 'transform', scrollTrigger: { trigger: '.services', start: 'top 85%' } });
   gsap.from('.review', { opacity: 0, x: 80, duration: 1.2, ease: 'expo.out', stagger: 0.1, scrollTrigger: { trigger: '#reviewsTrack', start: 'top 85%' } });
-  gsap.from('.contacts__card, .map', { opacity: 0, y: 70, rotateX: -10, duration: 1.3, ease: 'expo.out', stagger: 0.15, scrollTrigger: { trigger: '.contacts__grid', start: 'top 85%' } });
+  gsap.from('.contacts__card, .map', { opacity: 0, y: 50, clearProps: 'transform', duration: 1.3, ease: 'expo.out', stagger: 0.15, scrollTrigger: { trigger: '.contacts__grid', start: 'top 85%' } });
 
   // счётчики
   $$('[data-count]').forEach((el) => {

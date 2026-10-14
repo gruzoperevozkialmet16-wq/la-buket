@@ -153,7 +153,7 @@ input, select, textarea { font: inherit; color: inherit; }
 .mesh { position: absolute; inset: -10%; opacity: 0.95; pointer-events: none; z-index: 0; }
 .mesh i { position: absolute; border-radius: 50%; animation: drift 22s ease-in-out infinite alternate; }
 .mesh i:nth-child(1) { width: 52vw; height: 52vw; left: 46%; top: 2%; background: radial-gradient(circle, #f7cfd0 0%, rgba(247, 207, 208, 0) 68%); }
-.mesh i:nth-child(2) { width: 40vw; height: 40vw; left: 66%; top: 46%; background: radial-gradient(circle, #fbdcc3 0%, rgba(251, 220, 195, 0) 68%); animation-duration: 26s; animation-delay: -6s; }
+.mesh i:nth-child(2) { width: 40vw; height: 40vw; left: 66%; top: 46%; background: radial-gradient(circle, rgba(251, 220, 195, 0.85) 0%, rgba(251, 220, 195, 0.35) 40%, rgba(251, 220, 195, 0) 70%); animation-duration: 26s; animation-delay: -6s; }
 .mesh i:nth-child(3) { width: 44vw; height: 44vw; left: -8%; top: 52%; background: radial-gradient(circle, #dbe6d8 0%, rgba(219, 230, 216, 0) 68%); animation-duration: 30s; animation-delay: -12s; }
 .mesh i:nth-child(4) { width: 34vw; height: 34vw; left: 22%; top: -14%; background: radial-gradient(circle, #ece0f0 0%, rgba(236, 224, 240, 0) 68%); animation-duration: 24s; animation-delay: -3s; }
 @keyframes drift {

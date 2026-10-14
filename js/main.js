@@ -173,7 +173,7 @@ function renderGrid(animate = false, appendOnly = false) {
   fresh.forEach(bindTilt);
   if (hasGsap && (animate || appendOnly || !introDone)) {
     gsap.fromTo(fresh, { opacity: 0, y: 60, rotateX: -18 }, {
-      opacity: 1, y: 0, rotateX: 0, duration: 1, ease: 'expo.out', stagger: 0.06,
+      opacity: 1, y: 0, rotateX: 0, duration: 1, ease: 'expo.out', stagger: 0.06, clearProps: 'transform',
       scrollTrigger: animate || appendOnly ? undefined : { trigger: grid, start: 'top 85%' },
     });
   }
@@ -575,7 +575,8 @@ function introAnimations() {
   });
 
   // карусель «вплывает» из глубины
-  gsap.from('#ring', { scale: 0.6, opacity: 0, duration: 1.8, ease: 'expo.out', scrollTrigger: { trigger: '#ringStage', start: 'top 80%' } });
+  // без scale: иначе браузер растрирует карточки в уменьшенном виде и потом растягивает (пиксели)
+  gsap.from('#ringStage', { opacity: 0, y: 60, duration: 1.6, ease: 'expo.out', clearProps: 'transform', scrollTrigger: { trigger: '#ringStage', start: 'top 85%' } });
 
   // каскад фото в «О салоне» раскрывается веером при прокрутке
   const stack = $$('#stack img');

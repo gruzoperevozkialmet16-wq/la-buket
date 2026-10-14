@@ -149,7 +149,8 @@ export function initHero(canvas, items, onPick) {
     return null;
   }
   const isSmall = window.innerWidth < 760;
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, isSmall ? 1.5 : 2));
+  // полная плотность пикселей экрана (на телефонах 3x), иначе фото выглядят мыльными
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 3));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.15;
@@ -175,7 +176,9 @@ export function initHero(canvas, items, onPick) {
   const cardGeo = new THREE.PlaneGeometry(CARD_W, CARD_H, 24, 24);
   const shadowGeo = new THREE.PlaneGeometry(CARD_W * 1.5, CARD_H * 1.45);
 
-  const cards = LAYOUT.slice(0, Math.min(LAYOUT.length, items.length)).map((l, i) => {
+  // на телефоне — 5 крупных карточек вместо 9 мелких
+  const count = Math.min(window.innerWidth < 900 ? 5 : LAYOUT.length, items.length);
+  const cards = LAYOUT.slice(0, count).map((l, i) => {
     const item = items[i];
     const uniforms = {
       uMap: { value: null },
@@ -192,7 +195,10 @@ export function initHero(canvas, items, onPick) {
     mesh.visible = false;
     loader.load(item.image, (tex) => {
       tex.colorSpace = THREE.SRGBColorSpace;
-      tex.anisotropy = 4;
+      tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+      tex.minFilter = THREE.LinearMipmapLinearFilter;
+      tex.magFilter = THREE.LinearFilter;
+      tex.generateMipmaps = true;
       uniforms.uMap.value = tex;
       uniforms.uImgAspect.value = tex.image.width / tex.image.height;
       mesh.visible = true;
@@ -221,11 +227,11 @@ export function initHero(canvas, items, onPick) {
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     const narrow = window.innerWidth < 900 || w / h < 1.05;
-    camera.position.z = narrow ? 8.6 : 7;
+    camera.position.z = 7;
     const halfW = Math.tan((camera.fov * Math.PI) / 360) * camera.position.z * (w / h);
-    base.x = narrow ? 0 : Math.min(3.4, halfW * 0.47);
-    base.y = narrow ? 0.1 : 0;
-    base.scale = narrow ? Math.min(1, (halfW * 2) / 6.2) : 0.74;
+    base.x = narrow ? -0.05 : Math.min(3.4, halfW * 0.47);
+    base.y = narrow ? -0.1 : 0;
+    base.scale = narrow ? Math.min(1, (halfW * 2) / 4.6) : 0.74;
     camera.updateProjectionMatrix();
   }
   resize();
